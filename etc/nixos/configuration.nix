@@ -92,6 +92,7 @@
 
     # languages #
     nodejs
+    texlive.combined.scheme-medium
 
     # desktop #
     wmderland
