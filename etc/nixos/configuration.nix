@@ -160,6 +160,14 @@
   services.xserver.windowManager.wmderland.enable = true;
   services.xserver.windowManager.i3.enable = true;
 
+  # Install fonts.
+  fonts.fonts = with pkgs; [
+    uw-ttyp0
+  ];
+
+  # Set console font.
+  console.font = "uw-ttyp0";
+
   # Enable fish-shell.
   programs.fish.enable = true;
 
