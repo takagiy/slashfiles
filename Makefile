@@ -5,6 +5,10 @@ rebuild: submodules /etc/nixos/configuration.nix /etc/nixos/hardware-configurati
 .PHONY: install
 install: /etc/nixos/configuration.nix /etc/nixos/hardware-configuration.nix
 
+.PHONY: clean
+clean:
+	nix-collect-garbage -d
+
 .PHONY: submodules
 submodules:
 	git submodule init
