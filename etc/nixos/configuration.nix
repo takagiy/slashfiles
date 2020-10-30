@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.1.tar.gz")
     ];
 
   nix = {
@@ -89,6 +90,8 @@
     wget
     (neovim.override { vimAlias = true; })
     killall
+    fzf
+    fzy
 
     # languages #
     nodejs
@@ -172,7 +175,13 @@
   console.font = "uw-ttyp0";
 
   # Enable fish-shell.
-  programs.fish.enable = true;
+  programs.fish = {
+    enable = true;
+    plugins = [
+      "jethrokuan/fzf"
+      "b4b4r07/enhancd"
+    ];
+  };
 
   # Start fish-shell from the entering step of bash.
   programs.bash.interactiveShellInit = ''
