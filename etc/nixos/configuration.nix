@@ -89,6 +89,7 @@
     wget
     (neovim.override { vimAlias = true; })
     killall
+    zplug
 
     # languages #
     nodejs
@@ -171,13 +172,8 @@
   # Set console font.
   console.font = "uw-ttyp0";
 
-  # Enable fish-shell.
-  programs.fish.enable = true;
-
-  # Start fish-shell from the entering step of bash.
-  programs.bash.interactiveShellInit = ''
-    [ -z "$NO_EXEC_FISH" ] && exec fish
-  '';
+  # Enable zsh-shell.
+  programs.zsh.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.users.jane = {
@@ -187,7 +183,7 @@
   users.users.takagiy = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" ];
-    shell = pkgs.bash;
+    shell = pkgs.zsh;
   };
 
   # This value determines the NixOS release from which the default
