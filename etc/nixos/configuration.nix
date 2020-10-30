@@ -139,6 +139,9 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+  # Enable light to set backlight brightness.
+  programs.light.enable = true;
+
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
   # services.xserver.layout = "us";
@@ -183,7 +186,7 @@
   # };
   users.users.takagiy = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "video" ];
     shell = pkgs.bash;
   };
 
