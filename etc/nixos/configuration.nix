@@ -11,6 +11,9 @@
       (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.1.tar.gz")
     ];
 
+  # Save <nixpkgs> whithin this build locally.
+  environment.etc."nixos/nixpkgs".source = <nixpkgs>;
+
   nix = {
     # Use unstable version of nix.
     #package = pkgs.nixUnstable;
@@ -23,6 +26,9 @@
 
     # Build packages in isolated environment.
     useSandbox = true;
+
+    # Set nixpkgs to the saved one.
+    nixPath = [ "nixpkgs=/etc/nixos/nixpkgs" ];
   };
 
   # Use custom nixpkgs.
