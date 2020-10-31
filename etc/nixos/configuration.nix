@@ -168,7 +168,6 @@
   # services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.defaultSession = "none+wmderland";
-  services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.windowManager.wmderland.enable = true;
   services.xserver.windowManager.i3.enable = true;
 
