@@ -1,5 +1,5 @@
 .PHONY: rebuild
-rebuild: submodules /etc/nixos/configuration.nix /etc/nixos/hardware-configuration.nix
+rebuild: /etc/nixos/configuration.nix /etc/nixos/hardware-configuration.nix submodules
 	nixos-rebuild switch --upgrade -I nixpkgs=./.submodules/nixpkgs
 
 .PHONY: install

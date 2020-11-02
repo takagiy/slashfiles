@@ -28,7 +28,10 @@
     useSandbox = true;
 
     # Set nixpkgs to the saved one.
-    nixPath = [ "nixpkgs=/etc/nixos/nixpkgs" ];
+    nixPath = [
+      "nixpkgs=/etc/nixos/nixpkgs"
+      "nixos-config=/etc/nixos/configuration.nix"
+    ];
   };
 
   # Use custom nixpkgs.
