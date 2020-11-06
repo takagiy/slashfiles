@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./packages
       (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.1.tar.gz")
     ];
 
@@ -101,10 +102,13 @@
     killall
     fzf
     fzy
+    udiskie
+    qrcp
 
     # languages #
     nodejs
     texlive.combined.scheme-medium
+    go
 
     # desktop #
     wmderland
@@ -119,6 +123,8 @@
     # desktop.applications #
     google-chrome
     pavucontrol
+    discord
+    imv
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -140,6 +146,7 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;

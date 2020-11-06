@@ -1,9 +1,12 @@
+DEST_PKGS:=/etc/nixos/packages/qrcp.nix
+DEST:=/etc/nixos/configuration.nix /etc/nixos/hardware-configuration.nix /etc/nixos/packages/default.nix $(DEST_PKGS)
+
 .PHONY: rebuild
-rebuild: /etc/nixos/configuration.nix /etc/nixos/hardware-configuration.nix submodules
+rebuild: $(DEST) submodules
 	nixos-rebuild switch --upgrade -I nixpkgs=./.submodules/nixpkgs
 
 .PHONY: install
-install: /etc/nixos/configuration.nix /etc/nixos/hardware-configuration.nix
+install: $(DEST)
 
 .PHONY: clean
 clean:
@@ -22,7 +25,17 @@ submodules:
 	fi
 
 /etc/nixos/hardware-configuration.nix: .dest/hardware-configuration.nix
+	mkdir -p /etc/nixos
 	cp $< $@
 
 /etc/nixos/configuration.nix: etc/nixos/configuration.nix
+	mkdir -p /etc/nixos
+	cp $< $@
+
+/etc/nixos/packages/default.nix: etc/nixos/packages/default.nix
+	mkdir -p /etc/nixos/packages
+	cp $< $@
+
+/etc/nixos/packages/qrcp.nix: etc/nixos/packages/qrcp.nix
+	mkdir -p /etc/nixos/packages
 	cp $< $@
