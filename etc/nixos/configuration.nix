@@ -12,6 +12,8 @@
       (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.1.tar.gz")
     ];
 
+  nixpkgs.overlays = [ (import ./overlays/neovim.nix) ];
+
   # Save <nixpkgs> whithin this build locally.
   environment.etc."nixos/nixpkgs".source = <nixpkgs>;
 
@@ -84,7 +86,20 @@
 
   # Exporting environment variables.
   environment.variables = {
-    EDITOR = "vim";
+  };
+
+  # Enable nightly neovim as the default editor.
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    vimAlias = true;
+    package = pkgs.neovim-nightly;
+    configure = {
+      packages.myVimPackage.start = with pkgs.vimPlugins; [
+        fzf-vim
+        nvim-lspconfig
+      ];
+    };
   };
 
   # List packages installed in system profile. To search, run:
@@ -98,12 +113,12 @@
     ripgrep
     git
     wget
-    (neovim.override { vimAlias = true; })
     killall
     fzf
     fzy
     udiskie
     qrcp
+    scrot
 
     # languages #
     nodejs
@@ -140,6 +155,7 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+  services.openssh.enable = false;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

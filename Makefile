@@ -1,9 +1,10 @@
 DEST_PKGS:=/etc/nixos/packages/qrcp.nix
-DEST:=/etc/nixos/configuration.nix /etc/nixos/hardware-configuration.nix /etc/nixos/packages/default.nix $(DEST_PKGS)
+DEST_OVLS:=/etc/nixos/overlays/neovim.nix
+DEST:=/etc/nixos/configuration.nix /etc/nixos/hardware-configuration.nix /etc/nixos/packages/default.nix $(DEST_OVLS) $(DEST_PKGS)
 
 .PHONY: rebuild
 rebuild: $(DEST) submodules
-	nixos-rebuild switch --upgrade -I nixpkgs=./.submodules/nixpkgs
+	nixos-rebuild switch --upgrade -I nixpkgs=./.submodules/nixpkgs -I nixpkgs-overlays=/etc/nixos/overlays
 
 .PHONY: install
 install: $(DEST)
@@ -30,6 +31,10 @@ submodules:
 
 /etc/nixos/configuration.nix: etc/nixos/configuration.nix
 	mkdir -p /etc/nixos
+	cp $< $@
+
+/etc/nixos/overlays/neovim.nix: etc/nixos/overlays/neovim.nix
+	mkdir -p /etc/nixos/overlays
 	cp $< $@
 
 /etc/nixos/packages/default.nix: etc/nixos/packages/default.nix
