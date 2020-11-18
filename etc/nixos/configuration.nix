@@ -119,6 +119,7 @@
     udiskie
     qrcp
     scrot
+    acpi
 
     # languages #
     nodejs
