@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./packages
-      (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.1.tar.gz")
+      (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.2.tar.gz")
     ];
 
   nixpkgs.overlays = [ (import ./overlays/neovim.nix) ];
@@ -98,6 +98,7 @@
       packages.myVimPackage.start = with pkgs.vimPlugins; [
         fzf-vim
         nvim-lspconfig
+	julia-vim
       ];
     };
   };
@@ -120,11 +121,23 @@
     qrcp
     scrot
     acpi
+    python38Packages.grip
+    openssl
+    xbrightness
 
     # languages #
     nodejs
-    texlive.combined.scheme-medium
+    (texlive.combine {
+      inherit (texlive) scheme-medium collection-langjapanese;
+    })
     go
+    julia_15
+    rustup
+    cargo-edit
+    gcc
+    (python38.withPackages (pypkgs: with pypkgs; [ 
+      matplotlib
+    ]))
 
     # desktop #
     wmderland
@@ -137,10 +150,13 @@
     networkmanagerapplet
 
     # desktop.applications #
+    spotify
     google-chrome
     pavucontrol
     discord
     imv
+    vokoscreen-ng
+    llpp
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
