@@ -9,7 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./packages
-      (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.2.tar.gz")
+      (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.5.tar.gz")
+      #/home/takagiy/Repos/nixos-fish-plugmgr
     ];
 
   nixpkgs.overlays = [ (import ./overlays/neovim.nix) ];
