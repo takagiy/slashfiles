@@ -125,6 +125,7 @@
     python38Packages.grip
     openssl
     xbrightness
+    unar
 
     # languages #
     nodejs
