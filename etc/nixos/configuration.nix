@@ -104,6 +104,11 @@
     };
   };
 
+  # Enable lorri the useful replacement of nix-shell
+  # (https://github.com/target/lorri).
+  services.lorri.enable = true;
+
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   # environment.systemPackages = with pkgs; [
@@ -111,6 +116,7 @@
   # ];
   environment.systemPackages = with pkgs; [
     # cli #
+    pstree
     tree
     ripgrep
     git
@@ -126,6 +132,8 @@
     openssl
     xbrightness
     unar
+    # This is for lorri
+    direnv
 
     # languages #
     nodejs
@@ -136,8 +144,10 @@
     julia_15
     rustup
     cargo-edit
+    cargo-license
     gcc
     (python38.withPackages (pypkgs: with pypkgs; [ 
+      pip
       matplotlib
     ]))
 
@@ -152,8 +162,10 @@
     networkmanagerapplet
 
     # desktop.applications #
+    bitwig-studio
+    aseprite
     spotify
-    google-chrome
+    chromium
     pavucontrol
     discord
     imv
@@ -208,6 +220,10 @@
   services.xserver.libinput.enable = true;
   services.xserver.libinput.naturalScrolling = true;
 
+  # Enable and unlock gnome-keyring automatically
+  # services.gnome3.gnome-keyring.enable = true;
+  # security.pam.services.lightdm.enableGnomeKeyring = true;
+
   # Enable the KDE Desktop Environment.
   # services.xserver.displayManager.sddm.enable = true;
   # services.xserver.desktopManager.plasma5.enable = true;
@@ -231,6 +247,9 @@
       "jethrokuan/fzf"
       "b4b4r07/enhancd"
     ];
+    interactiveShellInit = ''
+      direnv hook fish | source
+    '';
   };
 
   # Start fish-shell from the entering step of bash.
