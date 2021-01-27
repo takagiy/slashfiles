@@ -218,7 +218,7 @@
   # Enable touchpad support.
   # services.xserver.libinput.enable = true;
   services.xserver.libinput.enable = true;
-  services.xserver.libinput.naturalScrolling = true;
+  services.xserver.libinput.touchpad.naturalScrolling = true;
 
   # Enable and unlock gnome-keyring automatically
   # services.gnome3.gnome-keyring.enable = true;
