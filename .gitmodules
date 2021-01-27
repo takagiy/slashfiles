@@ -1,0 +1,3 @@
+[submodule ".submodules/nixpkgs"]
+	path = .submodules/nixpkgs
+	url = https://github.com/takagiy/nixpkgs
