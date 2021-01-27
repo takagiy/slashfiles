@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./packages
       (fetchTarball "https://github.com/takagiy/nixos-declarative-fish-plugin-mgr/archive/0.0.5.tar.gz")
+      (fetchTarball "https://github.com/musnix/musnix/archive/master.tar.gz")
       #/home/takagiy/Repos/nixos-fish-plugmgr
     ];
 
@@ -31,11 +32,24 @@
     # Build packages in isolated environment.
     useSandbox = true;
 
+    # Set number of jobs.
+    maxJobs = 8;
+
     # Set nixpkgs to the saved one.
     nixPath = [
       "nixpkgs=/etc/nixos/nixpkgs"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
+  };
+
+  # Set up real-time audio
+  musnix = {
+    enable = true;
+    soundcardPciId = "00:1f.3";
+    kernel = {
+      optimize = true;
+      realtime = true;
+    };
   };
 
   # Use custom nixpkgs.
@@ -48,11 +62,12 @@
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.hostName = "modapone";
-  #networking.wireless.enable = true;
+  # networking.wireless.enable = true;
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
   programs.nm-applet = {
     enable = true;
-    indicator = false;
+    indicator = true;
   };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
@@ -60,6 +75,7 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.wlp2s0.useDHCP = true;
+  networking.nameservers = ["208.67.222.222" "1.1.1.1" "8.8.8.8"];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -159,7 +175,6 @@
     hsetroot
     rofi
     termite
-    networkmanagerapplet
 
     # desktop.applications #
     bitwig-studio
@@ -264,7 +279,7 @@
   # };
   users.users.takagiy = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "video" "audio" ];
     shell = pkgs.bash;
   };
 
